@@ -5,6 +5,9 @@ var YearDropdown = React.createClass({
   displayName: 'YearDropdown',
 
   propTypes: {
+    dropdownMode: React.PropTypes.string.isRequired,
+    maxDate: React.PropTypes.object,
+    minDate: React.PropTypes.object,
     onChange: React.PropTypes.func.isRequired,
     year: React.PropTypes.number.isRequired
   },
@@ -13,6 +16,25 @@ var YearDropdown = React.createClass({
     return {
       dropdownVisible: false
     }
+  },
+
+  renderSelectOptions () {
+    const minYear = this.props.minDate ? this.props.minDate.year() : 1900
+    const maxYear = this.props.maxDate ? this.props.maxDate.year() : 2100
+
+    const options = []
+    for (let i = minYear; i <= maxYear; i++) {
+      options.push(<option key={i} value={i}>{i}</option>)
+    }
+    return options
+  },
+
+  renderSelectMode () {
+    return (
+      <select value={this.props.year} className="react-datepicker__year-select" onChange={e => this.onChange(e.target.value)}>
+        {this.renderSelectOptions()}
+      </select>
+    )
   },
 
   renderReadView () {
@@ -34,6 +56,10 @@ var YearDropdown = React.createClass({
     )
   },
 
+  renderScrollMode () {
+    return this.state.dropdownVisible ? this.renderDropdown() : this.renderReadView()
+  },
+
   onChange (year) {
     this.toggleDropdown()
     if (year === this.props.year) return
@@ -47,11 +73,17 @@ var YearDropdown = React.createClass({
   },
 
   render () {
-    return (
-      <div>
-        {this.state.dropdownVisible ? this.renderDropdown() : this.renderReadView()}
-      </div>
-    )
+    let renderedDropdown
+    switch (this.props.dropdownMode) {
+      case 'scroll':
+        renderedDropdown = this.renderScrollMode()
+        break
+      case 'select':
+        renderedDropdown = this.renderSelectMode()
+        break
+    }
+
+    return <div>{renderedDropdown}</div>
   }
 })
 

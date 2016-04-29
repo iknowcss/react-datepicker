@@ -1,8 +1,8 @@
 {
   "author": "HackerOne",
-  "name": "react-datepicker",
+  "name": "@nib-components/react-datepicker",
   "description": "A simple and reusable datepicker component for React",
-  "version": "0.25.0",
+  "version": "0.26.1",
   "license": "MIT",
   "homepage": "https://github.com/Hacker0x01/react-datepicker",
   "main": "dist/react-datepicker.min.js",

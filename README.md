@@ -1,30 +1,23 @@
-# React Date Picker
-[![npm version](https://badge.fury.io/js/react-datepicker.svg)](https://badge.fury.io/js/react-datepicker)
-[![Build Status](https://travis-ci.org/Hacker0x01/react-datepicker.svg?branch=master)](https://travis-ci.org/Hacker0x01/react-datepicker)
-[![Dependency Status](https://david-dm.org/Hacker0x01/react-datepicker.svg)](https://david-dm.org/Hacker0x01/react-datepicker)
-[![codecov.io](https://codecov.io/github/Hacker0x01/react-datepicker/coverage.svg?branch=master)](https://codecov.io/github/Hacker0x01/react-datepicker?branch=master)
-[![Downloads](http://img.shields.io/npm/dm/react-datepicker.svg)](https://npmjs.org/package/react-datepicker)
+# nib React Date Picker
 
-A simple and reusable Datepicker component for React ([Demo](https://hacker0x01.github.io/react-datepicker/))
-
-![](https://cloud.githubusercontent.com/assets/1412392/5339491/c40de124-7ee1-11e4-9f07-9276e2545f27.png)
+A forked version of [Hacker0x01/react-datepicker](https://github.com/Hacker0x01/react-datepicker) adapted to nib's needs
 
 ## Installation
 
 The package can be installed via NPM:
 
 ```
-npm install react-datepicker --save
+npm install @nib-components/react-datepicker --save
 ```
 
 You’ll need to install React and Moment.js separately since those dependencies aren’t included in the package. Below is a simple example on how to use the Datepicker in a React view. You will also need to require the css file from this package (or provide your own). The example below shows how to include the css from this package if your build system supports requiring css files (webpack is one that does).
 
 ```js
 var React = require('react');
-var DatePicker = require('react-datepicker');
+var DatePicker = require('@nib-components/react-datepicker');
 var moment = require('moment');
 
-require('react-datepicker/dist/react-datepicker.css');
+require('@nib-styles/react-datepicker/dist/react-datepicker.css');
 
 var Example = React.createClass({
   displayName: 'Example',

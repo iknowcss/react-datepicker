@@ -1,5 +1,6 @@
 import moment from 'moment'
 import YearDropdown from './year_dropdown'
+import MonthDropdown from './month_dropdown'
 import Month from './month'
 import React from 'react'
 import { isSameDay, allDaysDisabledBefore, allDaysDisabledAfter } from './date_utils'
@@ -9,6 +10,7 @@ var Calendar = React.createClass({
 
   propTypes: {
     dateFormat: React.PropTypes.string.isRequired,
+    dropdownMode: React.PropTypes.string,
     endDate: React.PropTypes.object,
     excludeDates: React.PropTypes.array,
     filterDate: React.PropTypes.func,
@@ -18,7 +20,9 @@ var Calendar = React.createClass({
     minDate: React.PropTypes.object,
     onClickOutside: React.PropTypes.func.isRequired,
     onSelect: React.PropTypes.func.isRequired,
+    peekNextMonth: React.PropTypes.bool,
     selected: React.PropTypes.object,
+    showMonthDropdown: React.PropTypes.bool,
     showYearDropdown: React.PropTypes.bool,
     startDate: React.PropTypes.object,
     todayButton: React.PropTypes.string
@@ -84,6 +88,12 @@ var Calendar = React.createClass({
     })
   },
 
+  changeMonth (month) {
+    this.setState({
+      date: this.state.date.clone().set('month', month)
+    })
+  },
+
   header () {
     const startOfWeek = this.state.date.clone().startOf('week')
     return [0, 1, 2, 3, 4, 5, 6].map(offset => {
@@ -132,8 +142,24 @@ var Calendar = React.createClass({
     }
     return (
       <YearDropdown
+          dropdownMode={this.props.dropdownMode}
           onChange={this.changeYear}
-          year={this.state.date.year()} />
+          minDate={this.props.minDate}
+          maxDate={this.props.maxDate}
+          year={this.state.date.year()}/>
+    )
+  },
+
+  renderMonthDropdown () {
+    if (!this.props.showMonthDropdown) {
+      return
+    }
+    return (
+      <MonthDropdown
+          dropdownMode={this.props.dropdownMode}
+          locale={this.props.locale}
+          onChange={this.changeMonth}
+          month={this.state.date.month()} />
     )
   },
 
@@ -155,7 +181,10 @@ var Calendar = React.createClass({
         <div className="react-datepicker__header">
           {this.renderPreviousMonthButton()}
           {this.renderCurrentMonth()}
-          {this.renderYearDropdown()}
+          <div className="react-datepicker__header__dropdown">
+            {this.renderMonthDropdown()}
+            {this.renderYearDropdown()}
+          </div>
           {this.renderNextMonthButton()}
           <div>
             {this.header()}
@@ -171,7 +200,8 @@ var Calendar = React.createClass({
             filterDate={this.props.filterDate}
             selected={this.props.selected}
             startDate={this.props.startDate}
-            endDate={this.props.endDate} />
+            endDate={this.props.endDate}
+            peekNextMonth={this.props.peekNextMonth} />
         {this.renderTodayButton()}
       </div>
     )

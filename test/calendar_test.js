@@ -3,6 +3,7 @@ import TestUtils from 'react-addons-test-utils'
 import moment from 'moment'
 import Calendar from '../src/calendar'
 import YearDropdown from '../src/year_dropdown'
+import MonthDropdown from '../src/month_dropdown'
 
 describe('Calendar', function () {
   var dateFormat = 'MMMM YYYY'
@@ -13,6 +14,7 @@ describe('Calendar', function () {
         onSelect={() => {}}
         onClickOutside={() => {}}
         hideCalendar={() => {}}
+        dropdownMode="scroll"
         {...extraProps} />
   }
 
@@ -58,6 +60,18 @@ describe('Calendar', function () {
     var calendar = TestUtils.renderIntoDocument(getCalendar({ showYearDropdown: true }))
     var yearReadView = TestUtils.findRenderedComponentWithType(calendar, YearDropdown)
     expect(yearReadView).to.exist
+  })
+
+  it('should not show the month dropdown menu by default', function () {
+    var calendar = TestUtils.renderIntoDocument(getCalendar())
+    var monthReadView = TestUtils.scryRenderedComponentsWithType(calendar, MonthDropdown)
+    expect(monthReadView).to.be.empty
+  })
+
+  it('should show the month dropdown menu if toggled on', function () {
+    var calendar = TestUtils.renderIntoDocument(getCalendar({ showMonthDropdown: true }))
+    var monthReadView = TestUtils.findRenderedComponentWithType(calendar, MonthDropdown)
+    expect(monthReadView).to.exist
   })
 
   it('should not show the today button by default', function () {

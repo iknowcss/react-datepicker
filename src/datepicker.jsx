@@ -17,6 +17,7 @@ var DatePicker = React.createClass({
     dateFormat: React.PropTypes.string,
     dateFormatCalendar: React.PropTypes.string,
     disabled: React.PropTypes.bool,
+    dropdownMode: React.PropTypes.oneOf(['scroll', 'select']).isRequired,
     endDate: React.PropTypes.object,
     excludeDates: React.PropTypes.array,
     filterDate: React.PropTypes.func,
@@ -30,6 +31,7 @@ var DatePicker = React.createClass({
     onBlur: React.PropTypes.func,
     onChange: React.PropTypes.func.isRequired,
     onFocus: React.PropTypes.func,
+    peekNextMonth: React.PropTypes.bool,
     placeholderText: React.PropTypes.string,
     popoverAttachment: React.PropTypes.string,
     popoverTargetAttachment: React.PropTypes.string,
@@ -38,6 +40,7 @@ var DatePicker = React.createClass({
     renderCalendarTo: React.PropTypes.any,
     required: React.PropTypes.bool,
     selected: React.PropTypes.object,
+    showMonthDropdown: React.PropTypes.bool,
     showYearDropdown: React.PropTypes.bool,
     startDate: React.PropTypes.object,
     tabIndex: React.PropTypes.number,
@@ -51,6 +54,7 @@ var DatePicker = React.createClass({
       dateFormatCalendar: 'MMMM YYYY',
       onChange () {},
       disabled: false,
+      dropdownMode: 'scroll',
       onFocus () {},
       onBlur () {},
       popoverAttachment: 'top left',
@@ -129,6 +133,7 @@ var DatePicker = React.createClass({
         ref="calendar"
         locale={this.props.locale}
         dateFormat={this.props.dateFormatCalendar}
+        dropdownMode={this.props.dropdownMode}
         selected={this.props.selected}
         onSelect={this.handleSelect}
         minDate={this.props.minDate}
@@ -139,6 +144,8 @@ var DatePicker = React.createClass({
         filterDate={this.props.filterDate}
         onClickOutside={this.handleCalendarClickOutside}
         includeDates={this.props.includeDates}
+        peekNextMonth={this.props.peekNextMonth}
+        showMonthDropdown={this.props.showMonthDropdown}
         showYearDropdown={this.props.showYearDropdown}
         todayButton={this.props.todayButton} />
   },
